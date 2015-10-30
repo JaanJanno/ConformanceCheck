@@ -5,28 +5,27 @@ import java.util.HashMap;
 public class Case {
 	
 	private Trace trace;
-	private int duplicateCases;
+	private int duplicateCaseCount;
+	@SuppressWarnings("unused")
+	private HashMap<String, CaseAttribute> caseAttributes;
 	
 	public Case(Trace trace, int duplicateCases) {
 		super();
 		this.trace = trace;
-		this.duplicateCases = duplicateCases;
+		this.duplicateCaseCount = duplicateCases;
 	}
 
 	public Trace getTrace() {
 		return trace;
 	}
 
-	public int getDuplicateCases() {
-		return duplicateCases;
+	public int getDuplicateCaseCount() {
+		return duplicateCaseCount;
 	}
-
-	@SuppressWarnings("unused")
-	private HashMap<String, CaseAttribute> caseAttributes;
 	
 	@Override
 	public String toString() {
-		String r = Integer.toString(duplicateCases) + " * ";
+		String r = Integer.toString(duplicateCaseCount) + " * ";
 		for(Event e : trace.getEvents()) {
 			r += e.getName();
 		}

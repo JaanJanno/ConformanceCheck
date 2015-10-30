@@ -22,7 +22,7 @@ public class ComputeController {
 		float producedSum = 0;
 		for (Case c : log.getCases()) {
 			Counter counter = playTrace(petri, c.getTrace().getEvents());
-			float n = c.getDuplicateCases();
+			float n = c.getDuplicateCaseCount();
 			missingsSum += n * counter.missingTokens;
 			consumedSum += n * counter.consumedTokens;
 			remaininSum += n * counter.remainingTokens;
@@ -36,7 +36,7 @@ public class ComputeController {
 		float numerator = 0;
 		float denominatorSum = 0;
 		for (Case c : log.getCases()) {
-			float n = c.getDuplicateCases();
+			float n = c.getDuplicateCaseCount();
 			float x = getMeanEnabledTransitions(petri, c.getTrace().getEvents());
 			numerator += n * (T - x);
 			denominatorSum += n;
@@ -62,10 +62,12 @@ public class ComputeController {
 		Counter counter = new Counter();
 		petri.setInitialMarking();
 		for (Event e : events) {
-			e.getTransition().fire(counter);
+			e.getLabelling().fire(counter);
 		}
 		if (petri.getEnd().getTokens() > 0) {
 			counter.remainingTokens -= 1;
+		} else {
+			counter.missingTokens += 1;
 		}
 		return counter;
 	}
@@ -80,7 +82,7 @@ public class ComputeController {
 		petri.setInitialMarking();
 		float enabled = countEnabledTransitions(petri);
 		for (Event e : events) {
-			e.getTransition().fire(counter);
+			e.getLabelling().fire(counter);
 			enabled += countEnabledTransitions(petri);
 		}
 		return enabled / (events.size());

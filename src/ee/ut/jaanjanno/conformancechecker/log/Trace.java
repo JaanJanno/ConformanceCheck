@@ -7,7 +7,6 @@ public class Trace {
 	private List<Event> events;
 
 	public Trace(List<Event> events) {
-		super();
 		this.events = events;
 	}
 

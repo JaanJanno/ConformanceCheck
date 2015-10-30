@@ -7,7 +7,7 @@ import ee.ut.jaanjanno.conformancechecker.petrinet.Transition;
 
 public class Event {
 	
-	private Transition transition;
+	private Transition labelling;
 	private String name;
 	@SuppressWarnings("unused")
 	private Date timeStamp;
@@ -16,13 +16,13 @@ public class Event {
 
 	public Event(Transition transition, String name, Date timeStamp) {
 		super();
-		this.transition = transition;
+		this.labelling = transition;
 		this.name = name;
 		this.timeStamp = timeStamp;
 	}
 
-	public Transition getTransition() {
-		return transition;
+	public Transition getLabelling() {
+		return labelling;
 	}
 
 	public String getName() {

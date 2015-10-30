@@ -13,7 +13,7 @@ public class PetriNet {
 	private Place begin;
 	private Place end;
 	
-	private Map<String, ee.ut.jaanjanno.conformancechecker.petrinet.Transition> labels;
+	private Map<String,Transition> labels;
 	
 	@SuppressWarnings("unused")
 	private int tokens;
@@ -26,6 +26,14 @@ public class PetriNet {
 		this.labels = labels;
 		setExtremes();
 		setInitialMarking();	
+	}
+	
+	public int getTokenCount() {
+		int sum = 0;
+		for(Place p:places){
+			sum += p.getTokens();
+		}
+		return sum;
 	}
 	
 	public Map<String, ee.ut.jaanjanno.conformancechecker.petrinet.Transition> getLabels() {
