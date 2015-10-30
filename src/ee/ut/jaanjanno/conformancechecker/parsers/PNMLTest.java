@@ -16,6 +16,7 @@ import org.processmining.plugins.pnml.Pnml;
 
 public class PNMLTest {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		PnmlImportUtils ut = new PnmlImportUtils();
 		File f = new File (args[0]);

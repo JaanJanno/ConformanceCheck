@@ -11,6 +11,7 @@ import org.deckfour.xes.model.XTrace;
 
 public class XESTest {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
 			XLog log = XLogReader.openLog(args[0]);

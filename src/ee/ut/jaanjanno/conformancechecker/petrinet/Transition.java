@@ -1,5 +1,6 @@
 package ee.ut.jaanjanno.conformancechecker.petrinet;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import ee.ut.jaanjanno.conformancechecker.log.Counter;
@@ -8,6 +9,19 @@ public class Transition implements Node {
 
 	private Set<Arc> inputPlaces;
 	private Set<Arc> outputPlaces;
+
+	public Transition() {
+		this.inputPlaces = new HashSet<>();
+		this.outputPlaces = new HashSet<>();
+	}
+	
+	public void addInput(Arc arc) {
+		inputPlaces.add(arc);
+	}
+	
+	public void addOutput(Arc arc) {
+		outputPlaces.add(arc);
+	}
 
 	public boolean isEnabled() {
 		for (Arc arc : inputPlaces) {
@@ -38,7 +52,7 @@ public class Transition implements Node {
 
 	private void fireOutputs(Counter c) {
 		for (Arc arc : outputPlaces) {
-			Place output = (Place) arc.getSource();
+			Place output = (Place) arc.getDestination();
 			output.produceToken();
 			c.producedTokens++;
 			c.remainingTokens++;

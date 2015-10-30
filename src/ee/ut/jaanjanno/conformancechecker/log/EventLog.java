@@ -6,6 +6,11 @@ public class EventLog {
 	
 	private Set<Case> cases;
 
+	public EventLog(Set<Case> cases) {
+		super();
+		this.cases = cases;
+	}
+
 	public Set<Case> getCases() {
 		return cases;
 	}

@@ -13,19 +13,25 @@ public class PetriNet {
 	private Place begin;
 	private Place end;
 	
+	private Map<String, ee.ut.jaanjanno.conformancechecker.petrinet.Transition> labels;
+	
 	@SuppressWarnings("unused")
 	private int tokens;
 	
-	public PetriNet(Set<Place> places, Set<Transition> transitions, Set<Arc> arcs) {
-		super();
+	public PetriNet(Set<Place> places, Set<Transition> transitions, Set<Arc> arcs, Map<String, Transition> labels) {
 		this.places = places;
 		this.transitions = transitions;
 		this.arcs = arcs;
 		this.tokens = 1;
-		setInitialMarking();
+		this.labels = labels;
 		setExtremes();
+		setInitialMarking();	
 	}
 	
+	public Map<String, ee.ut.jaanjanno.conformancechecker.petrinet.Transition> getLabels() {
+		return labels;
+	}
+
 	private void setExtremes() {
 		Map<Place, Integer> inputs = new HashMap<>();
 		Map<Place, Integer> outputs = new HashMap<>();
