@@ -31,24 +31,24 @@ public class ComputeController {
 		return 0.5f * (1f - missingsSum / consumedSum) + 0.5f * (1f - remaininSum / producedSum);
 	}
 	
-	public static float simpleBehavioralAppropriateness(PetriNet petri, EventLog log) {
-		float T = petri.getTransitions().size();
+	public static float simpleBehavioralAppropriateness(PetriNet petriNet, EventLog log) {
+		float T = petriNet.getTransitions().size();
 		float numerator = 0;
 		float denominatorSum = 0;
-		for (Case c : log.getCases()) {
-			float n = c.getDuplicateCaseCount();
-			float x = getMeanEnabledTransitions(petri, c.getTrace().getEvents());
+		for (Case nextCase : log.getCases()) {
+			float n = nextCase.getDuplicateCaseCount();
+			float x = getMeanEnabledTransitions(petriNet, nextCase.getTrace().getEvents());
 			numerator += n * (T - x);
 			denominatorSum += n;
 		}
 		return numerator / ((T - 1) * denominatorSum);
 	}
 
-	public static float simpleStructuralAppropriateness(PetriNet petri) {
-		float places = petri.getPlaces().size();
-		float transitions = petri.getTransitions().size();
-		float N = transitions + places;
-		float L = petri.getTransitions().size();
+	public static float simpleStructuralAppropriateness(PetriNet petriNet) {
+		float placesSize = petriNet.getPlaces().size();
+		float transitionsSize = petriNet.getTransitions().size();
+		float N = transitionsSize + placesSize;
+		float L = petriNet.getTransitions().size();
 		return (L + 2) / N;
 	}
 	
@@ -58,13 +58,13 @@ public class ComputeController {
 	 * on petri net.
 	 */
 
-	private static Counter playTrace(PetriNet petri, List<Event> events) {
+	private static Counter playTrace(PetriNet petriNet, List<Event> events) {
 		Counter counter = new Counter();
-		petri.setInitialMarking();
+		petriNet.setInitialMarking();
 		for (Event e : events) {
 			e.getLabelling().fire(counter);
 		}
-		if (petri.getEnd().getTokens() > 0) {
+		if (petriNet.getEnd().getTokens() > 0) {
 			counter.remainingTokens -= 1;
 		} else {
 			counter.missingTokens += 1;
@@ -90,8 +90,8 @@ public class ComputeController {
 
 	private static int countEnabledTransitions(PetriNet petri) {
 		int count = 0;
-		for (Transition t : petri.getTransitions())
-			if (t.isEnabled())
+		for (Transition transition : petri.getTransitions())
+			if (transition.isEnabled())
 				count++;
 		return count;
 	}
