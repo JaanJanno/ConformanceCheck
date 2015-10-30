@@ -54,6 +54,11 @@ public class PetriReadController {
 		}
 	}
 	
+	/*
+	 * Returns a set of all possible values of type T in the map,
+	 * which was mapped by types V.
+	 */
+	
 	private static <V, T> Set<T> getSet(Map<V, T> map) {
 		Set<T> set = new HashSet<>();
 		for(V t: map.keySet()){
@@ -61,6 +66,10 @@ public class PetriReadController {
 		}
 		return set;
 	}
+	
+	/*
+	 * Build all possible arcs between transitions and places.
+	 */
 
 	private static Set<Arc> getArcSet(Set<PetrinetEdge<? extends PetrinetNode, ? extends PetrinetNode>> edges,
 			Map<Place, ee.ut.jaanjanno.conformancechecker.petrinet.Place> placeMap,
@@ -82,6 +91,10 @@ public class PetriReadController {
 		}
 		return arcs;
 	}
+	
+	/*
+	 * Maps transitions to their raw counterpart type in the parsed petrinet.
+	 */
 
 	private static Map<Transition, ee.ut.jaanjanno.conformancechecker.petrinet.Transition> getTransitionMap(
 			Collection<Transition> transitions) {
@@ -92,6 +105,11 @@ public class PetriReadController {
 		}
 		return transMap;
 	}
+	
+	
+	/*
+	 * Maps places to their raw counterpart type in the parsed petrinet.
+	 */
 
 	private static Map<Place, ee.ut.jaanjanno.conformancechecker.petrinet.Place> getPlaceMap(Collection<Place> places) {
 		Map<Place, ee.ut.jaanjanno.conformancechecker.petrinet.Place> placeMap = new HashMap<>();
@@ -102,6 +120,11 @@ public class PetriReadController {
 		}
 		return placeMap;
 	}
+	
+	/*
+	 * Reads in the file and converts to its own raw petrinet type
+	 * which will be used for generating a new one.
+	 */
 
 	private static PetrinetGraph getPetrinetGraph(String name) throws Exception {
 		File f = new File(name);

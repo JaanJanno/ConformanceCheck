@@ -34,6 +34,10 @@ public class LogReadController {
 		Set<Case> cases = getCases(events, log);
 		return new EventLog(cases);
 	}
+	
+	/*
+	 * Connects event sequences to cases.
+	 */
 
 	private static Set<Case> getCases(Map<String, Event> events, XLog log) {
 		Map<List<Event>, Integer> map = getEventLists(events, log);
@@ -45,6 +49,11 @@ public class LogReadController {
 		}
 		return cases;
 	}
+	
+	/*
+	 * Returns map of all possible event sequences mapped
+	 * to the amount of such sequences in the log.
+	 */
 
 	private static Map<List<Event>, Integer> getEventLists(Map<String, Event> events, XLog log) {
 		Map<List<Event>, Integer> map = new HashMap<>();
@@ -60,6 +69,11 @@ public class LogReadController {
 		}
 		return map;
 	}
+	
+	/*
+	 * Saves events to map according to their label to
+	 * later connect them to transitions.
+	 */
 
 	private static Map<String, Event> getEventsMap(XLog log, Map<String, Transition> transitions) {
 		Map<String, Event> map = new HashMap<>();

@@ -9,7 +9,11 @@ import ee.ut.jaanjanno.conformancechecker.log.EventLog;
 import ee.ut.jaanjanno.conformancechecker.petrinet.PetriNet;
 import ee.ut.jaanjanno.conformancechecker.petrinet.Transition;
 
-public class Controller {
+public class ComputeController {
+	
+	/*
+	 * Class for doing computation tasks.
+	 */
 	
 	public static float fitness(PetriNet petri, EventLog log) {
 		float missingsSum = 0;
@@ -47,6 +51,12 @@ public class Controller {
 		float L = petri.getTransitions().size();
 		return (L + 2) / N;
 	}
+	
+	/*
+	 * Plays through given events on petri net.
+	 * Returns a counter that describes end state
+	 * on petri net.
+	 */
 
 	private static Counter playTrace(PetriNet petri, List<Event> events) {
 		Counter counter = new Counter();
@@ -54,8 +64,16 @@ public class Controller {
 		for (Event e : events) {
 			e.getTransition().fire(counter);
 		}
+		if (petri.getEnd().getTokens() > 0) {
+			counter.remainingTokens -= 1;
+		}
 		return counter;
 	}
+	
+	/*
+	 * Sums enabled transitions over states surrounding events
+	 * divides by their number to get the mean amount.
+	 */
 
 	private static float getMeanEnabledTransitions(PetriNet petri, List<Event> events) {
 		Counter counter = new Counter();

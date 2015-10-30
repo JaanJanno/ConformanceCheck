@@ -46,7 +46,6 @@ public class Transition implements Node {
 				c.missingTokens++;
 			}
 			c.consumedTokens++;
-
 		}
 	}
 
