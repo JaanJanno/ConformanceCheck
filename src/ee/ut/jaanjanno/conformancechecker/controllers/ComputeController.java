@@ -15,18 +15,18 @@ public class ComputeController {
 	 * Class for doing computation tasks.
 	 */
 	
-	public static float fitness(PetriNet petri, EventLog log) {
+	public static float fitness(PetriNet petriNet, EventLog log) {
 		float missingsSum = 0;
 		float consumedSum = 0;
 		float remaininSum = 0;
 		float producedSum = 0;
-		for (Case c : log.getCases()) {
-			Counter counter = playTrace(petri, c.getTrace().getEvents());
-			float n = c.getDuplicateCaseCount();
-			missingsSum += n * counter.missingTokens;
-			consumedSum += n * counter.consumedTokens;
-			remaininSum += n * counter.remainingTokens;
-			producedSum += n * counter.producedTokens;
+		for (Case nextCase : log.getCases()) {
+			Counter counter = playTrace(petriNet, nextCase.getTrace().getEvents());
+			float n = nextCase.getDuplicateCaseCount();
+			missingsSum += n * counter.getMissingTokens();
+			consumedSum += n * counter.getConsumedTokens();
+			remaininSum += n * counter.getRemainingTokens();
+			producedSum += n * counter.getProducedTokens();
 		}
 		return 0.5f * (1f - missingsSum / consumedSum) + 0.5f * (1f - remaininSum / producedSum);
 	}
